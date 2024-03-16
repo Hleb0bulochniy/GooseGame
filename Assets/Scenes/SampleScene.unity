@@ -1442,6 +1442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gamblerObject: {fileID: 0}
+  menu: {fileID: 1632834465}
   coords: {x: 0, y: 0, z: 0}
   firstRoundField: {fileID: 0}
   currentRoundField: {fileID: 0}
@@ -1452,6 +1453,7 @@ MonoBehaviour:
   orderNumber: 0
   money: 0
   losedMoney: 0
+  currentPositionNumber: 0
   canPlay: 1
   won: 0
   mustSkip: 0
@@ -4792,6 +4794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gamblerObject: {fileID: 0}
+  menu: {fileID: 1632834465}
   coords: {x: 0, y: 0, z: 0}
   firstRoundField: {fileID: 0}
   currentRoundField: {fileID: 0}
@@ -4802,6 +4805,7 @@ MonoBehaviour:
   orderNumber: 0
   money: 0
   losedMoney: 0
+  currentPositionNumber: 0
   canPlay: 1
   won: 0
   mustSkip: 0
@@ -6468,6 +6472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gamblerObject: {fileID: 0}
+  menu: {fileID: 1632834465}
   coords: {x: 0, y: 0, z: 0}
   firstRoundField: {fileID: 0}
   currentRoundField: {fileID: 0}
@@ -6478,6 +6483,7 @@ MonoBehaviour:
   orderNumber: 0
   money: 0
   losedMoney: 0
+  currentPositionNumber: 0
   canPlay: 1
   won: 0
   mustSkip: 0
@@ -7020,6 +7026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gamblerObject: {fileID: 0}
+  menu: {fileID: 1632834465}
   coords: {x: 0, y: 0, z: 0}
   firstRoundField: {fileID: 0}
   currentRoundField: {fileID: 0}
@@ -7030,6 +7037,7 @@ MonoBehaviour:
   orderNumber: 0
   money: 0
   losedMoney: 0
+  currentPositionNumber: 0
   canPlay: 1
   won: 0
   mustSkip: 0
@@ -9618,6 +9626,7 @@ MonoBehaviour:
   enemy1: {fileID: 0}
   enemy2: {fileID: 0}
   enemy3: {fileID: 0}
+  menu: {fileID: 1632834465}
   gameNumber: 0
   totalLosedMoney: 0
   firstRound: 0

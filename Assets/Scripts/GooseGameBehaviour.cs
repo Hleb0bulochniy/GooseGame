@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Profiling;
+using UnityEngine.Timeline;
 
 public class GooseGameBehaviour : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class GooseGameBehaviour : MonoBehaviour
     public EnemyClass enemy2;
     public EnemyClass enemy3;
 
-
+    public GameObject menu;
 
     //public PlayerClass player = new PlayerClass(10);
     //public EnemyClass enemy1 = new EnemyClass(10);
@@ -30,6 +32,10 @@ public class GooseGameBehaviour : MonoBehaviour
     public int gameNumber;
     public int totalLosedMoney;
     public bool firstRound = false;
+
+    public delegate void CheckNumberSignalReceivedDelegate(GamblerClass gambler);
+
+    public event CheckNumberSignalReceivedDelegate CheckNumberSignalReceived;
 
     void Start()
     {
@@ -40,6 +46,7 @@ public class GooseGameBehaviour : MonoBehaviour
         enemy2 = enemy2Object.GetComponent<EnemyClass>();
         enemy3 = enemy3Object.GetComponent<EnemyClass>();
         player.money = 10; enemy1.money = 10; enemy2.money = 10; enemy3.money = 10;
+
     }
 
     public void GameStart()
@@ -127,6 +134,8 @@ public class GooseGameBehaviour : MonoBehaviour
         Debug.Log("Следующая игра");
     }
 
+
+    //нужно перевести в ивент. Чтобы сначала ходил первый. Потом вызывалась проверка первого. Потом все остальное. Потом ходил второй и т.д.
     public void DoOneRound()
     {
         Debug.Log("Ход начат");
@@ -138,9 +147,11 @@ public class GooseGameBehaviour : MonoBehaviour
             gamblers[i].currentRoundField = GetField(gamblers[i].threwNumber + gamblers[i].currentRoundField.GetComponent<FieldClass>().number);
             gamblers[i].currentPositionNumber = gamblers[i].currentRoundField.number;
             gamblers[i].Go(gamblers[i].currentRoundField.number);
+            StartCoroutine(GoAndCheckCoroutine(gamblers[i].currentRoundField.number, gamblers[i]));
+            CheckNumberSignalReceived += OnCheckNumberSignalReceived;
             //gamblers[i].Go(gamblers[i].currentPositionNumber + 1);
             
-            gamblers[i].CheckNumber();
+            //gamblers[i].CheckNumber();
             /*if(firstRound)
             {
                 gamblers[i].firstRoundField = gamblers[i].currentRoundField;
@@ -184,6 +195,29 @@ public class GooseGameBehaviour : MonoBehaviour
             gamblers[i].needsHelp = false;
             gamblers[i].metSomeone = false;
         }
+    }
+
+    IEnumerator GoAndCheckCoroutine(int numberToGo, GamblerClass gambler)
+    {
+        menu.SetActive(false);
+        //gambler.Go(numberToGo);
+
+        yield return new WaitForSeconds(2f);
+
+        gambler.CheckNumber();
+        //menu.SetActive(true);
+    }
+
+    public void OnCheckNumberSignalReceived(GamblerClass gambler)
+    {
+        // Выполняем вторую функцию после получения сигнала с параметром
+        gambler.CheckNumber();
+    }
+
+    // Пример метода, который вызывает сигнал с параметром
+    public void SendCheckNumberSignal(GamblerClass gambler)
+    {
+        CheckNumberSignalReceived?.Invoke(gambler); // Вызываем сигнал с параметром, если кто-то на него подписан
     }
 
     // Update is called once per frame
