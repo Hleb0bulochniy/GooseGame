@@ -35,8 +35,6 @@ public class GooseGameBehaviour : MonoBehaviour
 
     public delegate void CheckNumberSignalReceivedDelegate(GamblerClass gambler);
 
-    public event CheckNumberSignalReceivedDelegate CheckNumberSignalReceived;
-
     void Start()
     {
         gameNumber = 1;
@@ -135,46 +133,19 @@ public class GooseGameBehaviour : MonoBehaviour
     }
 
 
-    //нужно перевести в ивент. Чтобы сначала ходил первый. Потом вызывалась проверка первого. Потом все остальное. Потом ходил второй и т.д.
+    //можно перевести в ивент. Чтобы сначала ходил первый. Потом вызывалась проверка первого. Потом все остальное. Потом ходил второй и т.д.
     public void DoOneRound()
     {
+
         Debug.Log("Ход начат");
-        GamblerClass[] gamblers = new GamblerClass[4] { player, enemy1, enemy2, enemy3 };
-        gamblers = gamblers.OrderBy(i => i.orderNumber).ToArray();
-        for (int i = 0; i < 4; i++)
-        {
-            gamblers[i].ThrowDices();
-            gamblers[i].currentRoundField = GetField(gamblers[i].threwNumber + gamblers[i].currentRoundField.GetComponent<FieldClass>().number);
-            gamblers[i].currentPositionNumber = gamblers[i].currentRoundField.number;
-            gamblers[i].Go(gamblers[i].currentRoundField.number);
-            StartCoroutine(GoAndCheckCoroutine(gamblers[i].currentRoundField.number, gamblers[i]));
-            CheckNumberSignalReceived += OnCheckNumberSignalReceived;
-            //gamblers[i].Go(gamblers[i].currentPositionNumber + 1);
-            
-            //gamblers[i].CheckNumber();
-            /*if(firstRound)
-            {
-                gamblers[i].firstRoundField = gamblers[i].currentRoundField;
-                firstRound = false;
-                gamblers[i].metSomeone = false;
-            }*/
-            if (gamblers[i].won) { GameEnd(); }
-            /*for (int j = 0; j < 4; j++)
-            {
-                if (gamblers[i].currentRoundField.number == gamblers[j].currentRoundField.number) { gamblers[i].metSomeone = true; }
-                else { gamblers[i].metSomeone = false;}
-            }*/
-            /*if (gamblers[i].metSomeone)
-            {
-                Debug.Log($"Встреча у {i} игрока");
-                gamblers[i].Go(gamblers[i].threwNumber + gamblers[i].currentRoundField.number);
-                gamblers[i].CheckNumber();
-                gamblers[i].metSomeone = false;
-            }*/
-            Debug.Log($"{i+1}-ый сделал ход");
-        }
+        StartCoroutine(DoOneRoundForEach(0));
         Debug.Log("Ход сделан");
     }
+
+
+
+
+
 
     public static FieldClass GetField(int number)
     {
@@ -197,28 +168,89 @@ public class GooseGameBehaviour : MonoBehaviour
         }
     }
 
-    IEnumerator GoAndCheckCoroutine(int numberToGo, GamblerClass gambler)
+    IEnumerator CheckCoroutine(int numberToGo, GamblerClass gambler)
     {
-        menu.SetActive(false);
+        //menu.SetActive(false);
         //gambler.Go(numberToGo);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         gambler.CheckNumber();
         //menu.SetActive(true);
     }
 
-    public void OnCheckNumberSignalReceived(GamblerClass gambler)
+    IEnumerator CheckForMoving(float seconds)
     {
-        // Выполняем вторую функцию после получения сигнала с параметром
-        gambler.CheckNumber();
+        yield return new WaitForSeconds(seconds);
+        GamblerClass[] gamblers = new GamblerClass[4] { player, enemy1, enemy2, enemy3 };
+        if (gamblers[0].isMoving == false & gamblers[1].isMoving == false & gamblers[2].isMoving == false & gamblers[3].isMoving == false) { menu.SetActive(true); }
+        //else { StartCoroutine(CheckForMoving(seconds)); }
     }
 
-    // Пример метода, который вызывает сигнал с параметром
-    public void SendCheckNumberSignal(GamblerClass gambler)
+    IEnumerator DoOneRoundForEach(int number)
     {
-        CheckNumberSignalReceived?.Invoke(gambler); // Вызываем сигнал с параметром, если кто-то на него подписан
+        //yield return new WaitForSeconds(1f);
+        menu.SetActive(false);
+        GamblerClass[] gamblers = new GamblerClass[4] { player, enemy1, enemy2, enemy3 };
+        gamblers = gamblers.OrderBy(i => i.orderNumber).ToArray();
+        if (gamblers[number].mustSkip == false & gamblers[number].needsHelp == false)
+        {
+            gamblers[number].ThrowDices();
+            gamblers[number].isMoving = true;
+            gamblers[number].currentRoundField = GetField(gamblers[number].threwNumber + gamblers[number].currentRoundField.GetComponent<FieldClass>().number);
+            gamblers[number].currentPositionNumber = gamblers[number].currentRoundField.number;
+        }
+        gamblers[number].Go(gamblers[number].currentRoundField.number);
+        StartCoroutine(CheckCoroutine(gamblers[number].currentRoundField.number, gamblers[number]));
+
+        if(firstRound)
+        {
+            gamblers[number].firstRoundField = gamblers[number].currentRoundField;
+            firstRound = false;
+            gamblers[number].metSomeone = false;
+        }
+        if (gamblers[number].won) { GameEnd(); }
+        for (int j = 0; j < 4; j++)
+        {
+            if (gamblers[number].currentPositionNumber == gamblers[j].currentPositionNumber & number != j)
+            {
+                gamblers[number].metSomeone = true;
+                if (gamblers[j].needsHelp)
+                {
+                    if (gamblers[j].currentPositionNumber == 31) { gamblers[j].WasHelped(1); }
+                    else if (gamblers[j].currentPositionNumber == 52) { gamblers[j].WasHelped(2); }
+                    Debug.Log($"{j+1}-ый игрок был спасен {number+1}-ым игроком");
+                }
+            }
+            else { }
+        }
+        //нужно переделать. Что если игрок попал мост, где уже кто-то стоял? Он не должен будет выбирать опции
+        //нужно переделать, чтобы человек попавший на колодец не перепрыгнул того, кто в нем был
+        //нужно переделать, добавить корутину, чтобы игрок попавший на другого игрока сначала в анимации переходил на него, а не сразу делал два хода
+        //второй ход при попадании на игрока не всегда работает, вероятно после гуся. Возможно из-за неправильных таймингов
+        //НУЖНО РАЗДЕЛИТЬ, ЧТОБЫ СНАЧАЛА ПОЛНОСТЬЮ СХОДИЛ ОДИН ИГРОК, ПОТОМ ДРУГОЙ
+        if (gamblers[number].metSomeone)
+        {
+            gamblers[number].metSomeone = false;
+            Debug.Log($"Встреча у {number + 1} игрока!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            gamblers[number].currentRoundField = GetField(gamblers[number].threwNumber + gamblers[number].currentRoundField.GetComponent<FieldClass>().number);
+            gamblers[number].currentPositionNumber = gamblers[number].currentRoundField.number;
+            gamblers[number].Go(gamblers[number].currentRoundField.number);
+            StartCoroutine(CheckCoroutine(gamblers[number].currentRoundField.number, gamblers[number]));
+        }
+        Debug.Log($"{number + 1}-ый сделал ход");
+        yield return new WaitForSeconds(1.1f);
+        gamblers[number].isMoving = false;
+        if ( number < 3)
+        {
+            number++;
+            StartCoroutine(DoOneRoundForEach(number));
+        }
+        StartCoroutine(CheckForMoving(1.1f));
+        StartCoroutine(CheckForMoving(4.6f));
+        StartCoroutine(CheckForMoving(7.1f));
     }
+
 
     // Update is called once per frame
     void Update()

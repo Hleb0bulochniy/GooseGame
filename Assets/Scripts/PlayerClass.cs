@@ -30,11 +30,12 @@ public class PlayerClass : GamblerClass
         money -= 2;
         losedMoney += 2;
         currentRoundField = GooseGameBehaviour.GetField(12);
+        currentPositionNumber = currentRoundField.number;
         Go(12);
     }
 
 
-
+    //переделать игрок успевает перебросить кубики и сходить второй раз на другое число
     public override void Choose63()
     {
         dices63Options.SetActive(true);
@@ -43,13 +44,15 @@ public class PlayerClass : GamblerClass
     public void Choose63Button1()
     {
         dices63Options.SetActive(false);
-        currentRoundField = GooseGameBehaviour.GetField(3 + currentRoundField.number);
+        currentRoundField = GooseGameBehaviour.GetField(3 + currentPositionNumber);
+        currentPositionNumber = currentRoundField.number;
         Go(currentRoundField.number);
     }
     public void Choose63Button2()
     {
         dices63Options.SetActive(false);
-        currentRoundField = GooseGameBehaviour.GetField(6 + currentRoundField.number);
+        currentRoundField = GooseGameBehaviour.GetField(6 + currentPositionNumber);
+        currentPositionNumber = currentRoundField.number;
         Go(currentRoundField.number);
         CheckNumber();
     }
@@ -67,20 +70,23 @@ public class PlayerClass : GamblerClass
     public void Choose45Button1()
     {
         dices63Options.SetActive(false);
-        currentRoundField = GooseGameBehaviour.GetField(4 + currentRoundField.number);
+        currentRoundField = GooseGameBehaviour.GetField(4 + currentPositionNumber);
+        currentPositionNumber = currentRoundField.number;
         Go(currentRoundField.number);
     }
     public void Choose45Button2()
     {
         dices63Options.SetActive(false);
-        currentRoundField = GooseGameBehaviour.GetField(5 + currentRoundField.number);
+        currentRoundField = GooseGameBehaviour.GetField(5 + currentPositionNumber);
+        currentPositionNumber = currentRoundField.number;
         Go(currentRoundField.number);
         CheckNumber();
     }
     public void Choose45Button3()
     {
         dices63Options.SetActive(false);
-        currentRoundField = GooseGameBehaviour.GetField(9 + currentRoundField.number);
+        currentRoundField = GooseGameBehaviour.GetField(9 + currentPositionNumber);
+        currentPositionNumber = currentRoundField.number;
         Go(currentRoundField.number);
     }
     public void Choose45Button4()

@@ -22,14 +22,25 @@ public class GamblerClass : MonoBehaviour
     public int threwNumber;
     public int orderNumber;
     public int money;
-    public int losedMoney;
-    public int currentPositionNumber;
+    public int losedMoney = 0;
+    public int currentPositionNumber = 0;
+    public int GoToCheckNumber = 0;
 
     public bool canPlay = true;
     public bool won = false;
     public bool mustSkip = false;
     public bool metSomeone = false;
     public bool needsHelp = false;
+    public bool isMoving = false;
+
+    public void GoToCheckButton()
+    {
+        currentRoundField = GooseGameBehaviour.GetField(GoToCheckNumber);
+        currentPositionNumber = currentRoundField.number;
+        Go(GoToCheckNumber);
+        CheckNumber();
+    }
+
 
     public virtual int Choose() { return 1; }
     public virtual void ChooseBridge()
@@ -124,86 +135,86 @@ public class GamblerClass : MonoBehaviour
                 
             }
             //мост
-            /*else if (currentRoundField.number == 6)
+            else if (currentRoundField.number == 6)
             {
                 Debug.Log("Кто-то попал в мост");
                 ChooseBridge();
-            }*/
+            }
 
             //трактир
-            /*else if (currentRoundField.number == 19)
+            else if (currentRoundField.number == 19)
             {
                 Debug.Log("Кто-то попал в трактир");
                 mustSkip = true;
                 money -= 2;
                 losedMoney += 2;
-            }*/
+            }
 
             //колодец
-            /*else if (currentRoundField.number == 31)
+            else if (currentRoundField.number == 31)
             {
                 Debug.Log("Кто-то попал в колодец");
                 money -= 3;
                 losedMoney += 3;
                 mustSkip = true;
                 needsHelp = true;
-            }*/
+            }
 
             //кубики 6 и 3
-            /*else if (currentRoundField.number == 26)
+            else if (currentRoundField.number == 26)
             {
                 Debug.Log("Кто-то попал в 63");
                 Choose63();
-            }*/
+            }
 
             //лабиринт
-            /*else if (currentRoundField.number == 42)
+            else if (currentRoundField.number == 42)
             {
                 Debug.Log("Кто-то попал в лабиринт");
                 money--;
                 losedMoney++;
                 currentRoundField = GooseGameBehaviour.GetField(39);
+                currentPositionNumber = currentRoundField.number;
                 Go(39);
-
-            }*/
+            }
 
             //тюрьма
-            /*else if (currentRoundField.number == 52)
+            else if (currentRoundField.number == 52)
             {
-                Debug.Log("Кто-то попал в тюрьмы");
+                Debug.Log("Кто-то попал в тюрьму");
                 money -= 2;
                 losedMoney += 2;
                 mustSkip = true;
                 needsHelp = true;
-            }*/
+            }
 
             //кубики 4 и 5
-            /*else if (currentRoundField.number == 53)
+            else if (currentRoundField.number == 53)
             {
                 Debug.Log("Кто-то попал в 45");
                 Choose45();
-            }*/
+            }
 
             //смерть
-            /*else if (currentRoundField.number == 58)
+            else if (currentRoundField.number == 58)
             {
                 Debug.Log("Кто-то попал в смерть");
                 money--;
                 losedMoney++;
                 currentRoundField = GooseGameBehaviour.GetField(1);
+                currentPositionNumber = currentRoundField.number;
                 Go(1);
-
-            }*/
+            }
 
             //победа
-            /*else if (currentRoundField.number == 63)
+            else if (currentRoundField.number == 63)
             {
                 Debug.Log("Кто-то попал в победу");
                 won = true;
-            }*/
+            }
             //menu.SetActive(true);
         }
-        StartCoroutine(MenuEnableCoroutine());
+        //StartCoroutine(MenuEnableCoroutine());
     }
 
     public void WasHelped(int situation)
@@ -212,6 +223,8 @@ public class GamblerClass : MonoBehaviour
         //2 - тюрьма
         if (situation == 1)
         {
+            currentRoundField = firstRoundField;
+            currentPositionNumber = firstRoundField.number;
             Go(firstRoundField.number);
             mustSkip = false;
             needsHelp = false;
@@ -242,12 +255,13 @@ public class GamblerClass : MonoBehaviour
             }
             else
             {
+                //currentRoundField = GooseGameBehaviour.GetField(threwNumber + currentRoundField.number);
+                //currentPositionNumber = currentRoundField.number;
                 Debug.Log($"Перехожу на поле {number}");
                 if (number > 63) { number = 63 - Mathf.Abs(63 - number); }
                 FieldClass field = GooseGameBehaviour.GetField(number);
                 //currentRoundField = field;
-                Vector3 targerCoords;
-                targerCoords = currentRoundField.transform.position;
+                Vector3 targerCoords = currentRoundField.transform.position;
                 //transform.position = Vector3.Lerp(transform.position, targerCoords, 2f * Time.deltaTime);
                 //transform.position = targerCoords;
                 StartCoroutine(SmoothMove(targerCoords, transform.position, 0));
@@ -273,18 +287,23 @@ public class GamblerClass : MonoBehaviour
 
     IEnumerator GoAndCheckCoroutine(int numberToGo)
     {
+        isMoving = true;
         menu.SetActive(false);
         Go(numberToGo);
 
         yield return new WaitForSeconds(1f);
 
         CheckNumber();
+
+        yield return new WaitForSeconds(1f);
+        isMoving = false;
         //menu.SetActive(true);
     }
     IEnumerator MenuEnableCoroutine()
     {
         yield return new WaitForSeconds(1f);
-        menu.SetActive(true);
+        //menu.SetActive(true);
     }
+
 }
 //нужно разобраться, когда включать менюшку
