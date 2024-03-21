@@ -23,6 +23,7 @@ public class PlayerClass : GamblerClass
         bridgeOptions.SetActive(false);
         money--;
         losedMoney++;
+        isChoising = false;
     }
     public void ChooseBridgeButton2()
     {
@@ -32,6 +33,7 @@ public class PlayerClass : GamblerClass
         currentRoundField = GooseGameBehaviour.GetField(12);
         currentPositionNumber = currentRoundField.number;
         Go(12);
+        isChoising = false;
     }
 
 
@@ -47,6 +49,7 @@ public class PlayerClass : GamblerClass
         currentRoundField = GooseGameBehaviour.GetField(3 + currentPositionNumber);
         currentPositionNumber = currentRoundField.number;
         Go(currentRoundField.number);
+        isChoising = false;
     }
     public void Choose63Button2()
     {
@@ -54,11 +57,13 @@ public class PlayerClass : GamblerClass
         currentRoundField = GooseGameBehaviour.GetField(6 + currentPositionNumber);
         currentPositionNumber = currentRoundField.number;
         Go(currentRoundField.number);
-        CheckNumber();
+        //CheckNumber();
+        isChoising = false;
     }
     public void Choose63Button3()
     {
         dices63Options.SetActive(false);
+        isChoising = false;
     }
 
 
@@ -73,6 +78,7 @@ public class PlayerClass : GamblerClass
         currentRoundField = GooseGameBehaviour.GetField(4 + currentPositionNumber);
         currentPositionNumber = currentRoundField.number;
         Go(currentRoundField.number);
+        isChoising = false;
     }
     public void Choose45Button2()
     {
@@ -80,7 +86,8 @@ public class PlayerClass : GamblerClass
         currentRoundField = GooseGameBehaviour.GetField(5 + currentPositionNumber);
         currentPositionNumber = currentRoundField.number;
         Go(currentRoundField.number);
-        CheckNumber();
+        //CheckNumber();
+        isChoising = false;
     }
     public void Choose45Button3()
     {
@@ -88,10 +95,12 @@ public class PlayerClass : GamblerClass
         currentRoundField = GooseGameBehaviour.GetField(9 + currentPositionNumber);
         currentPositionNumber = currentRoundField.number;
         Go(currentRoundField.number);
+        isChoising = false;
     }
     public void Choose45Button4()
     {
         dices63Options.SetActive(false);
+        isChoising = false;
     }
 
 
@@ -112,4 +121,8 @@ public class PlayerClass : GamblerClass
     {
         this.money = money;
     }*/
+
+    
 }
+
+

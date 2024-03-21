@@ -32,13 +32,14 @@ public class GamblerClass : MonoBehaviour
     public bool metSomeone = false;
     public bool needsHelp = false;
     public bool isMoving = false;
+    public bool isChoising = false;
 
     public void GoToCheckButton()
     {
         currentRoundField = GooseGameBehaviour.GetField(GoToCheckNumber);
         currentPositionNumber = currentRoundField.number;
         Go(GoToCheckNumber);
-        CheckNumber();
+        //CheckNumber();
     }
 
 
@@ -62,6 +63,7 @@ public class GamblerClass : MonoBehaviour
                 Go(12);
             }
         }
+        isChoising = false;
     }
     public virtual void Choose63()
     {
@@ -80,9 +82,10 @@ public class GamblerClass : MonoBehaviour
             {
                 currentRoundField = GooseGameBehaviour.GetField(6 + currentRoundField.number);
                 Go(currentRoundField.number);
-                CheckNumber();
+                //CheckNumber();
             }
         }
+        isChoising = false;
     }
     public virtual void Choose45()
     {
@@ -101,7 +104,7 @@ public class GamblerClass : MonoBehaviour
             {
                 currentRoundField = GooseGameBehaviour.GetField(5 + currentRoundField.number);
                 Go(currentRoundField.number);
-                CheckNumber();
+                //CheckNumber();
             }
 
             if (choice == 3)
@@ -111,6 +114,7 @@ public class GamblerClass : MonoBehaviour
 
             }
         }
+        isChoising = false;
     }
 
     void Start()
@@ -118,105 +122,7 @@ public class GamblerClass : MonoBehaviour
         //coords = transform.position;
     }
 
-    public void CheckNumber()
-    {
-        if (currentRoundField != null)
-        {
-            
-            //гусь
-            if (currentRoundField.number == 5 | currentRoundField.number == 9 | currentRoundField.number == 14 | currentRoundField.number == 18 | currentRoundField.number == 23 | currentRoundField.number == 27 | currentRoundField.number == 32 | currentRoundField.number == 36 | currentRoundField.number == 41 | currentRoundField.number == 45 | currentRoundField.number == 50 | currentRoundField.number == 54 | currentRoundField.number == 59)
-            {
-                Debug.Log(" то-то попал в гус€");
-                currentRoundField = GooseGameBehaviour.GetField(threwNumber + currentRoundField.number);
-                currentPositionNumber = currentRoundField.number;
-                //Go(currentRoundField.number);
-                //CheckNumber();
-                StartCoroutine(GoAndCheckCoroutine(currentRoundField.number));
-                
-            }
-            //мост
-            else if (currentRoundField.number == 6)
-            {
-                Debug.Log(" то-то попал в мост");
-                ChooseBridge();
-            }
-
-            //трактир
-            else if (currentRoundField.number == 19)
-            {
-                Debug.Log(" то-то попал в трактир");
-                mustSkip = true;
-                money -= 2;
-                losedMoney += 2;
-            }
-
-            //колодец
-            else if (currentRoundField.number == 31)
-            {
-                Debug.Log(" то-то попал в колодец");
-                money -= 3;
-                losedMoney += 3;
-                mustSkip = true;
-                needsHelp = true;
-            }
-
-            //кубики 6 и 3
-            else if (currentRoundField.number == 26)
-            {
-                Debug.Log(" то-то попал в 63");
-                Choose63();
-            }
-
-            //лабиринт
-            else if (currentRoundField.number == 42)
-            {
-                Debug.Log(" то-то попал в лабиринт");
-                money--;
-                losedMoney++;
-                currentRoundField = GooseGameBehaviour.GetField(39);
-                currentPositionNumber = currentRoundField.number;
-                Go(39);
-            }
-
-            //тюрьма
-            else if (currentRoundField.number == 52)
-            {
-                Debug.Log(" то-то попал в тюрьму");
-                money -= 2;
-                losedMoney += 2;
-                mustSkip = true;
-                needsHelp = true;
-            }
-
-            //кубики 4 и 5
-            else if (currentRoundField.number == 53)
-            {
-                Debug.Log(" то-то попал в 45");
-                Choose45();
-            }
-
-            //смерть
-            else if (currentRoundField.number == 58)
-            {
-                Debug.Log(" то-то попал в смерть");
-                money--;
-                losedMoney++;
-                currentRoundField = GooseGameBehaviour.GetField(1);
-                currentPositionNumber = currentRoundField.number;
-                Go(1);
-            }
-
-            //победа
-            else if (currentRoundField.number == 63)
-            {
-                Debug.Log(" то-то попал в победу");
-                won = true;
-            }
-            //menu.SetActive(true);
-        }
-        //StartCoroutine(MenuEnableCoroutine());
-    }
-
+    
     public void WasHelped(int situation)
     {
         //1 - колодец
@@ -293,7 +199,7 @@ public class GamblerClass : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        CheckNumber();
+        //CheckNumber();
 
         yield return new WaitForSeconds(1f);
         isMoving = false;

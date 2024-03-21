@@ -12,15 +12,18 @@ public class EnemyClass : GamblerClass
         {
             money--;
             losedMoney++;
+            isChoising = false;
         }
         if (i == 2)
         {
+            isChoising = false;
             money -= 2;
             losedMoney += 2;
             currentRoundField = GooseGameBehaviour.GetField(12);
             currentPositionNumber = currentRoundField.number;
             Go(12);
         }
+
     }
 
     public override void Choose63()
@@ -38,8 +41,9 @@ public class EnemyClass : GamblerClass
             currentRoundField = GooseGameBehaviour.GetField(6 + currentRoundField.number);
             currentPositionNumber = currentRoundField.number;
             Go(currentRoundField.number);
-            CheckNumber();
+            //CheckNumber();
         }
+        isChoising = false;
     }
 
     public override void Choose45()
@@ -57,7 +61,7 @@ public class EnemyClass : GamblerClass
             currentRoundField = GooseGameBehaviour.GetField(5 + currentRoundField.number);
             currentPositionNumber = currentRoundField.number;
             Go(currentRoundField.number);
-            CheckNumber();
+            //CheckNumber();
         }
         if (i == 3)
         {
@@ -65,6 +69,7 @@ public class EnemyClass : GamblerClass
             currentPositionNumber = currentRoundField.number;
             Go(currentRoundField.number);
         }
+        isChoising = false;
     }
 
 

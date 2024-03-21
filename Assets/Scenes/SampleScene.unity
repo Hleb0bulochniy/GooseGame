@@ -1461,6 +1461,7 @@ MonoBehaviour:
   metSomeone: 0
   needsHelp: 0
   isMoving: 0
+  isChoising: 0
 --- !u!212 &332811219
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1554,13 +1555,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344967660}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 780782737}
-  m_Father: {fileID: 1632834469}
+  m_Father: {fileID: 1829424122}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4815,6 +4816,7 @@ MonoBehaviour:
   metSomeone: 0
   needsHelp: 0
   isMoving: 0
+  isChoising: 0
 --- !u!212 &958801448
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6495,6 +6497,7 @@ MonoBehaviour:
   metSomeone: 0
   needsHelp: 0
   isMoving: 0
+  isChoising: 0
 --- !u!212 &1438637141
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7051,6 +7054,7 @@ MonoBehaviour:
   metSomeone: 0
   needsHelp: 0
   isMoving: 0
+  isChoising: 0
   chosenNumber: 0
 --- !u!212 &1549778732
 SpriteRenderer:
@@ -7313,12 +7317,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2077126531}
-  - {fileID: 344967661}
   - {fileID: 1969877310}
   - {fileID: 1155833240}
   - {fileID: 188993911}
   - {fileID: 1522570882}
+  - {fileID: 1829424122}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8206,6 +8209,43 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1829424121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1829424122}
+  m_Layer: 5
+  m_Name: MenuButtons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1829424122
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829424121}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2077126531}
+  - {fileID: 344967661}
+  m_Father: {fileID: 1632834469}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1834547895
 GameObject:
   m_ObjectHideFlags: 0
@@ -9417,7 +9457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1969877310
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9634,7 +9674,7 @@ MonoBehaviour:
   enemy1: {fileID: 0}
   enemy2: {fileID: 0}
   enemy3: {fileID: 0}
-  menu: {fileID: 1632834465}
+  menu: {fileID: 1829424121}
   gameNumber: 0
   totalLosedMoney: 0
   firstRound: 0
@@ -9679,13 +9719,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077126530}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 610052468}
-  m_Father: {fileID: 1632834469}
+  m_Father: {fileID: 1829424122}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
