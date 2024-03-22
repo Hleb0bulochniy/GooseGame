@@ -13,6 +13,7 @@ public class EnemyClass : GamblerClass
             money--;
             losedMoney++;
             isChoising = false;
+            choicedToStay = true;
         }
         if (i == 2)
         {
@@ -43,6 +44,10 @@ public class EnemyClass : GamblerClass
             Go(currentRoundField.number);
             //CheckNumber();
         }
+        if (i == 3)
+        {
+            choicedToStay = true;
+        }
         isChoising = false;
     }
 
@@ -68,6 +73,10 @@ public class EnemyClass : GamblerClass
             currentRoundField = GooseGameBehaviour.GetField(9 + currentRoundField.number);
             currentPositionNumber = currentRoundField.number;
             Go(currentRoundField.number);
+        }
+        if (i == 4)
+        {
+            choicedToStay = true;
         }
         isChoising = false;
     }

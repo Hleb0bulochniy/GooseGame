@@ -33,6 +33,13 @@ public class GamblerClass : MonoBehaviour
     public bool needsHelp = false;
     public bool isMoving = false;
     public bool isChoising = false;
+    public bool choicedToStay = false;
+    public bool isInTavern = false;
+    public bool readyToLeaveTheTavern = false;
+    public bool isInWell = false;
+    public bool readyToLeaveTheWell = false;
+    public bool isInPrison = false;
+    public bool readyToLeaveThePrison = false;
 
     public void GoToCheckButton()
     {
@@ -46,75 +53,12 @@ public class GamblerClass : MonoBehaviour
     public virtual int Choose() { return 1; }
     public virtual void ChooseBridge()
     {
-        int choice = Random.Range(1,2);
-        if (choice != 0)
-        {
-            if (choice == 1)
-            {
-                money--;
-                losedMoney++;
-            }
-
-            if (choice == 2)
-            {
-                money -= 2;
-                losedMoney += 2;
-                currentRoundField = GooseGameBehaviour.GetField(12);
-                Go(12);
-            }
-        }
-        isChoising = false;
     }
     public virtual void Choose63()
     {
-        int choice = Random.Range(1, 3);
-        if (choice != 0)
-        {
-            //если игрок не хочет ходить, то передается 3
-            if (choice == 1)
-            {
-                currentRoundField = GooseGameBehaviour.GetField(3 + currentRoundField.number);
-                Go(currentRoundField.number);
-
-            }
-
-            if (choice == 2)
-            {
-                currentRoundField = GooseGameBehaviour.GetField(6 + currentRoundField.number);
-                Go(currentRoundField.number);
-                //CheckNumber();
-            }
-        }
-        isChoising = false;
     }
     public virtual void Choose45()
     {
-        int choice = Random.Range(1, 4);
-        if (choice != 0)
-        {
-            //если игрок не хочет ходить, то передается 4
-            if (choice == 1)
-            {
-                currentRoundField = GooseGameBehaviour.GetField(4 + currentRoundField.number);
-                Go(currentRoundField.number);
-
-            }
-
-            if (choice == 2)
-            {
-                currentRoundField = GooseGameBehaviour.GetField(5 + currentRoundField.number);
-                Go(currentRoundField.number);
-                //CheckNumber();
-            }
-
-            if (choice == 3)
-            {
-                currentRoundField = GooseGameBehaviour.GetField(9 + currentRoundField.number);
-                Go(currentRoundField.number);
-
-            }
-        }
-        isChoising = false;
     }
 
     void Start()
@@ -191,25 +135,5 @@ public class GamblerClass : MonoBehaviour
         }
     }
 
-    IEnumerator GoAndCheckCoroutine(int numberToGo)
-    {
-        isMoving = true;
-        menu.SetActive(false);
-        Go(numberToGo);
-
-        yield return new WaitForSeconds(1f);
-
-        //CheckNumber();
-
-        yield return new WaitForSeconds(1f);
-        isMoving = false;
-        //menu.SetActive(true);
-    }
-    IEnumerator MenuEnableCoroutine()
-    {
-        yield return new WaitForSeconds(1f);
-        //menu.SetActive(true);
-    }
 
 }
-//нужно разобраться, когда включать менюшку

@@ -1462,6 +1462,9 @@ MonoBehaviour:
   needsHelp: 0
   isMoving: 0
   isChoising: 0
+  choicedToStay: 0
+  isInTavern: 0
+  readyToLeaveTheTavern: 0
 --- !u!212 &332811219
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1542,12 +1545,12 @@ GameObject:
   - component: {fileID: 344967663}
   - component: {fileID: 344967662}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: DoOneRound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &344967661
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4817,6 +4820,9 @@ MonoBehaviour:
   needsHelp: 0
   isMoving: 0
   isChoising: 0
+  choicedToStay: 0
+  isInTavern: 0
+  readyToLeaveTheTavern: 0
 --- !u!212 &958801448
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6498,6 +6504,9 @@ MonoBehaviour:
   needsHelp: 0
   isMoving: 0
   isChoising: 0
+  choicedToStay: 0
+  isInTavern: 0
+  readyToLeaveTheTavern: 0
 --- !u!212 &1438637141
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7055,6 +7064,9 @@ MonoBehaviour:
   needsHelp: 0
   isMoving: 0
   isChoising: 0
+  choicedToStay: 0
+  isInTavern: 0
+  readyToLeaveTheTavern: 0
   chosenNumber: 0
 --- !u!212 &1549778732
 SpriteRenderer:
@@ -7317,7 +7329,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1969877310}
   - {fileID: 1155833240}
   - {fileID: 188993911}
   - {fileID: 1522570882}
@@ -8239,6 +8250,7 @@ RectTransform:
   m_Children:
   - {fileID: 2077126531}
   - {fileID: 344967661}
+  - {fileID: 1969877310}
   m_Father: {fileID: 1632834469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -9452,7 +9464,7 @@ GameObject:
   - component: {fileID: 1969877312}
   - component: {fileID: 1969877311}
   m_Layer: 5
-  m_Name: Button (Legacy) (4)
+  m_Name: NewRoundStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9465,13 +9477,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969877309}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2113339316}
-  m_Father: {fileID: 1632834469}
+  m_Father: {fileID: 1829424122}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9522,9 +9534,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1549778731}
-        m_TargetAssemblyTypeName: GamblerClass, Assembly-CSharp
-        m_MethodName: GoToCheckButton
+      - m_Target: {fileID: 2030868983}
+        m_TargetAssemblyTypeName: GooseGameBehaviour, Assembly-CSharp
+        m_MethodName: GameStartNextRound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9670,11 +9682,9 @@ MonoBehaviour:
   enemy1Object: {fileID: 1438637139}
   enemy2Object: {fileID: 958801446}
   enemy3Object: {fileID: 332811217}
-  player: {fileID: 0}
-  enemy1: {fileID: 0}
-  enemy2: {fileID: 0}
-  enemy3: {fileID: 0}
-  menu: {fileID: 1829424121}
+  startFirstGameMenu: {fileID: 2077126530}
+  doOneRoundMenu: {fileID: 344967660}
+  newGameStartMenu: {fileID: 1969877309}
   gameNumber: 0
   totalLosedMoney: 0
   firstRound: 0
@@ -9706,12 +9716,12 @@ GameObject:
   - component: {fileID: 2077126533}
   - component: {fileID: 2077126532}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: GameStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2077126531
 RectTransform:
   m_ObjectHideFlags: 0

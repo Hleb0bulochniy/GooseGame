@@ -24,6 +24,7 @@ public class PlayerClass : GamblerClass
         money--;
         losedMoney++;
         isChoising = false;
+        choicedToStay = true;
     }
     public void ChooseBridgeButton2()
     {
@@ -64,6 +65,7 @@ public class PlayerClass : GamblerClass
     {
         dices63Options.SetActive(false);
         isChoising = false;
+        choicedToStay = true;
     }
 
 
@@ -101,6 +103,7 @@ public class PlayerClass : GamblerClass
     {
         dices63Options.SetActive(false);
         isChoising = false;
+        choicedToStay = true;
     }
 
 
